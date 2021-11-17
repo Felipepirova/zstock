@@ -8,10 +8,11 @@ export const Container = styled.div`
 
     li {
       margin-top: 1rem;
-      border: 1px solid #d7d7d7;
+
       padding: 1rem;
       border-radius: 2rem;
-      color: var(--text-color);
+      color: var(--grey);
+      background: var(--white);
     }
   }
 `

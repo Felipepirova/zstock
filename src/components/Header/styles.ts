@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.header`
-  background: var(--header-color);
+  background: var(--white);
 `
 
 export const Content = styled.div`
@@ -15,11 +15,11 @@ export const Content = styled.div`
 
   button {
     font-size: 1rem;
-    color: #fff;
-    background: var(--button-color);
-    border: 0;
+    color: var(--green);
+    background: var(--white);
+    border: 1px solid var(--green);
     padding: 0 2rem;
-    border-radius: 0.25rem;
+    border-radius: 3rem;
     height: 3rem;
 
     transition: filter 0.2s;

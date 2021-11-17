@@ -3,11 +3,11 @@ import { createGlobalStyle } from 'styled-components'
 export const GlobalStyle = createGlobalStyle`
   
   :root {
-    --background: #fff;
-    --header-color:#E0F393;
-    --title-color: #221C35;
-    --button-color: #00BF6F;
-    --text-color:#9A95AA;
+    --orange: #FF5C38;
+    --white:#fff;
+    --blue: #221C35;
+    --green: #00BF6F;
+    --grey:#9A95AA;
   }
   
   * {
@@ -34,11 +34,11 @@ export const GlobalStyle = createGlobalStyle`
   h1,h2,h3,h4,h5,h6, strong{
     font-weight: 600;
     font-family: "Sora", sans-serif;
-    color: var(--title-color);
+    color: var(--blue);
   }
 
   body{
-    background: var(--background);
+    background: var(--orange);
     -webkit-font-smoothing: antialiased;
   }
 
