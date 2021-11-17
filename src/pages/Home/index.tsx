@@ -1,9 +1,8 @@
-import { api } from '../../services/api'
+import { useStocks } from '../../hooks/useStock'
 import { Container } from './style'
 
 export function Home() {
-  //consumindo api
-  api.get('products').then(response => console.log(response))
+  const { products } = useStocks()
 
   return (
     <Container>
