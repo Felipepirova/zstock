@@ -3,7 +3,10 @@ import { createGlobalStyle } from 'styled-components'
 export const GlobalStyle = createGlobalStyle`
   
   :root {
-   //cores da aplicação
+    --background: #fff;
+    --title-color: #221C35;
+    --button-color: #00BF6F;
+    --text-color:#9A95AA;
   }
   
   * {
@@ -23,12 +26,14 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body, input, textarea, button{
-    font-family: "Poppins", sans-serif;
+    font-family: "Sora", sans-serif;
     font-weight: 400;
   }
 
   h1,h2,h3,h4,h5,h6, strong{
     font-weight: 600;
+    font-family: "Sora", sans-serif;
+    color: var(--title-color);
   }
 
   body{
