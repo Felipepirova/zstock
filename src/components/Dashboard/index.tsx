@@ -5,9 +5,7 @@ import arrowDownImg from '../../assets/arrow_down.svg'
 import { useStocksState } from '../../hooks/useStock'
 
 export function Dashboard() {
-  const { totalValueOfProducts } = useStocksState()
-
-  console.log(totalValueOfProducts)
+  const { getBalance, getAmount, getOutput } = useStocksState()
 
   return (
     <Container>
@@ -20,7 +18,7 @@ export function Dashboard() {
           {new Intl.NumberFormat('pt-BR', {
             style: 'currency',
             currency: 'BRL'
-          }).format(100000)}
+          }).format(getBalance)}
         </strong>
       </div>
       <div>
@@ -28,14 +26,18 @@ export function Dashboard() {
           <p>Produtos em estoque</p>
           <img src={arrowUpImg} alt="Saídas" />
         </header>
-        <strong className="products">32 Unidades</strong>
+        <strong className="products">
+          {getAmount > 1 ? getAmount + ' Unidades' : getAmount + ' Unidade'}
+        </strong>
       </div>
       <div>
         <header>
           <p>Produtos vendidos</p>
           <img src={arrowDownImg} alt="Total" />
         </header>
-        <strong className="sales">21 Unidades</strong>
+        <strong className="sales">
+          {getOutput > 1 ? getOutput + ' Unidades' : getOutput + ' Unidade'}
+        </strong>
       </div>
     </Container>
   )

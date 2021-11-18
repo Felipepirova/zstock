@@ -25,7 +25,9 @@ interface ProductProviderProps {
 interface ProductsContextData {
   state: {
     products: Product[]
-    totalValueOfProducts: number
+    getBalance: number
+    getAmount: number
+    getOutput: number
   }
   actions: {
     //function
@@ -43,23 +45,42 @@ export function ProductsProvider({ children }: ProductProviderProps) {
     api.get('products').then(response => setProducts(response.data.products))
   }, [])
 
-  const totalValueOfProducts = useMemo(() => {
-    return products.reduce((total, product) => total + product.saleValue, 0)
+  const getBalance = useMemo(() => {
+    const outputSale = products
+      .filter(product => product.output > 0)
+      .map(product => product.output * product.saleValue)
+      .reduce((total, value) => total + value, 0)
+
+    const outputProfit = products
+      .filter(product => product.output > 0)
+      .map(product => product.output * product.profitValue)
+      .reduce((total, value) => total + value, 0)
+
+    return outputProfit - outputSale
   }, [products])
 
-  // const getProductsValue = () => {
-  //   return products
-  //     .filter(product => product.qty > 0)
-  //     .map(product => product.qty * product.saleValue)
-  //     .reduce((acc, value) => acc + value, 0)
-  // }
+  const getAmount = useMemo(() => {
+    return products
+      .filter(product => product.amount > 0)
+      .map(product => product.amount)
+      .reduce((total, value) => total + value, 0)
+  }, [products])
+
+  const getOutput = useMemo(() => {
+    return products
+      .filter(product => product.output > 0)
+      .map(product => product.output)
+      .reduce((total, value) => total + value, 0)
+  }, [products])
 
   return (
     <ProductsContext.Provider
       value={{
         state: {
           products,
-          totalValueOfProducts
+          getBalance,
+          getAmount,
+          getOutput
         },
         actions: {}
       }}

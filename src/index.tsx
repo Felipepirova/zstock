@@ -16,9 +16,9 @@ createServer({
           description: 'Notebook',
           type: 'eletronic',
           saleValue: 1000,
-          profitValue: 1300,
+          profitValue: 2000,
           amount: 3,
-          output: 1
+          output: 5
         },
         {
           id: 1,
