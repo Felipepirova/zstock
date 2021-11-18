@@ -11,7 +11,7 @@ export function Dashboard() {
     <Container>
       <div>
         <header>
-          <p>Valor em caixa</p>
+          <p>Valor acumulado</p>
           <img src={moneyImg} alt="Entradas" />
         </header>
         <strong className="money">

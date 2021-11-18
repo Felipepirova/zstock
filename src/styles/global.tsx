@@ -3,7 +3,6 @@ import { createGlobalStyle } from 'styled-components'
 export const GlobalStyle = createGlobalStyle`
   
   :root {
-    --orange: #FF5C38;
     --white:#fff;
     --blue: #221C35;
     --green: #00BF6F;
@@ -38,16 +37,24 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body{
-    background: var(--orange);
+    background: var(--green);
     -webkit-font-smoothing: antialiased;
   }
 
-  button{
+  button {
+    font-size: 1rem;
+    color: var(--green);
+    background: var(--white);
+    border: 1px solid var(--green);
+    padding: 0 2rem;
+    border-radius: 3rem;
+    height: 3rem;
     cursor: pointer;
+    transition: filter 0.2s;
+
+    &:hover {
+      filter: brightness(0.9);
+    }
   }
 
-  [disabled]{
-    opacity:0.6;
-    cursor: not-allowed;
-  }
 `

@@ -16,3 +16,18 @@ export const Container = styled.div`
     }
   }
 `
+export const Content = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      margin-left: 1rem;
+    }
+  }
+`

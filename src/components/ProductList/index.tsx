@@ -1,15 +1,25 @@
-import { useStocksState } from '../../hooks/useStock'
-import { Container } from './styles'
+import { useStocksActions, useStocksState } from '../../hooks/useStock'
+import { Container, Content } from './styles'
 
 export function ProductList() {
-  const { products } = useStocksState()
+  const { filteredProducts } = useStocksState()
+  const { setFilter } = useStocksActions()
 
   return (
     <Container>
-      <h2>Produtos em estoque</h2>
-
+      <Content>
+        <h2>Produtos em estoque</h2>
+        <div>
+          <button onClick={() => setFilter('')}>Todos</button>
+          <button onClick={() => setFilter('eletronic')}>Eletrônicos</button>
+          <button onClick={() => setFilter('appliances')}>
+            Eletrodomésticos
+          </button>
+          <button onClick={() => setFilter('furniture')}>Moveis</button>
+        </div>
+      </Content>
       <ul>
-        {products.map(product => (
+        {filteredProducts.map(product => (
           <li key={product.id}>
             <p>Descrição:{product.description} </p>
             <p>Tipo:{product.type}</p>

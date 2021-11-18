@@ -28,9 +28,10 @@ interface ProductsContextData {
     getBalance: number
     getAmount: number
     getOutput: number
+    filteredProducts: Product[]
   }
   actions: {
-    //function
+    setFilter: (props: string) => void
   }
 }
 
@@ -40,6 +41,7 @@ const ProductsContext = createContext<ProductsContextData>(
 
 export function ProductsProvider({ children }: ProductProviderProps) {
   const [products, setProducts] = useState<Product[]>([])
+  const [filter, setFilter] = useState<string>('')
 
   useEffect(() => {
     api.get('products').then(response => setProducts(response.data.products))
@@ -47,31 +49,52 @@ export function ProductsProvider({ children }: ProductProviderProps) {
 
   const getBalance = useMemo(() => {
     const outputSale = products
-      .filter(product => product.output > 0)
+      .filter(
+        product =>
+          product.output > 0 && (product.type === filter || filter === '')
+      )
       .map(product => product.output * product.saleValue)
       .reduce((total, value) => total + value, 0)
 
     const outputProfit = products
-      .filter(product => product.output > 0)
+      .filter(
+        product =>
+          product.output > 0 && (product.type === filter || filter === '')
+      )
       .map(product => product.output * product.profitValue)
       .reduce((total, value) => total + value, 0)
 
     return outputProfit - outputSale
-  }, [products])
+  }, [products, filter])
 
-  const getAmount = useMemo(() => {
-    return products
-      .filter(product => product.amount > 0)
-      .map(product => product.amount)
-      .reduce((total, value) => total + value, 0)
-  }, [products])
+  const getAmount = useMemo(
+    () =>
+      products
+        .filter(
+          product =>
+            product.amount > 0 && (product.type === filter || filter === '')
+        )
+        .map(product => product.amount)
+        .reduce((total, value) => total + value, 0),
+    [products, filter]
+  )
 
-  const getOutput = useMemo(() => {
-    return products
-      .filter(product => product.output > 0)
-      .map(product => product.output)
-      .reduce((total, value) => total + value, 0)
-  }, [products])
+  const getOutput = useMemo(
+    () =>
+      products
+        .filter(
+          product =>
+            product.output > 0 && (product.type === filter || filter === '')
+        )
+        .map(product => product.output)
+        .reduce((total, value) => total + value, 0),
+    [products, filter]
+  )
+
+  const filteredProducts = useMemo(
+    () => products.filter(({ type }) => type === filter || filter === ''),
+    [products, filter]
+  )
 
   return (
     <ProductsContext.Provider
@@ -80,9 +103,12 @@ export function ProductsProvider({ children }: ProductProviderProps) {
           products,
           getBalance,
           getAmount,
-          getOutput
+          getOutput,
+          filteredProducts
         },
-        actions: {}
+        actions: {
+          setFilter
+        }
       }}
     >
       {children}
