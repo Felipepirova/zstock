@@ -2,8 +2,13 @@ import { Container } from './styles'
 import moneyImg from '../../assets/money.svg'
 import arrowUpImg from '../../assets/arrow_up.svg'
 import arrowDownImg from '../../assets/arrow_down.svg'
+import { useStocksState } from '../../hooks/useStock'
 
 export function Dashboard() {
+  const { totalValueOfProducts } = useStocksState()
+
+  console.log(totalValueOfProducts)
+
   return (
     <Container>
       <div>

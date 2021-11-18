@@ -1,8 +1,8 @@
-import { useStocks } from '../../hooks/useStock'
+import { useStocksState } from '../../hooks/useStock'
 import { Container } from './styles'
 
 export function ProductList() {
-  const { products } = useStocks()
+  const { products } = useStocksState()
 
   return (
     <Container>

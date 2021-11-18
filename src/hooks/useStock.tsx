@@ -3,6 +3,7 @@ import {
   ReactNode,
   useContext,
   useEffect,
+  useMemo,
   useState
 } from 'react'
 import { api } from '../services/api'
@@ -22,7 +23,13 @@ interface ProductProviderProps {
 }
 
 interface ProductsContextData {
-  products: Product[]
+  state: {
+    products: Product[]
+    totalValueOfProducts: number
+  }
+  actions: {
+    //function
+  }
 }
 
 const ProductsContext = createContext<ProductsContextData>(
@@ -36,14 +43,40 @@ export function ProductsProvider({ children }: ProductProviderProps) {
     api.get('products').then(response => setProducts(response.data.products))
   }, [])
 
+  const totalValueOfProducts = useMemo(() => {
+    return products.reduce((total, product) => total + product.saleValue, 0)
+  }, [products])
+
+  // const getProductsValue = () => {
+  //   return products
+  //     .filter(product => product.qty > 0)
+  //     .map(product => product.qty * product.saleValue)
+  //     .reduce((acc, value) => acc + value, 0)
+  // }
+
   return (
-    <ProductsContext.Provider value={{ products }}>
+    <ProductsContext.Provider
+      value={{
+        state: {
+          products,
+          totalValueOfProducts
+        },
+        actions: {}
+      }}
+    >
       {children}
     </ProductsContext.Provider>
   )
 }
 
-export function useStocks() {
-  const context = useContext(ProductsContext)
-  return context
+export const useStocks = () => useContext(ProductsContext)
+
+export const useStocksState = () => {
+  const context = useStocks()
+  return context.state
+}
+
+export const useStocksActions = () => {
+  const context = useStocks()
+  return context.actions
 }
