@@ -1,13 +1,19 @@
 import { Container, Content } from './styles'
 
-export function Header() {
+interface HeaderProps {
+  onOpenNewProductModal: () => void
+}
+
+export function Header({ onOpenNewProductModal }: HeaderProps) {
   return (
     <Container>
       <Content>
         <h2>
           Z<span>Stock</span>
         </h2>
-        <button type="button">Nova movimentação</button>
+        <button type="button" onClick={onOpenNewProductModal}>
+          Nova movimentação
+        </button>
       </Content>
     </Container>
   )
