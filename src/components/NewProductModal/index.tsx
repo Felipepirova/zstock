@@ -22,7 +22,7 @@ export function NewProductModal({
       <Container>
         <h2>Cadastrar novo produto</h2>
         <input type="text" placeholder="Descrição" />
-        <h2>type</h2>
+        {/* componente para button entrada e saida */}
         <input type="number" placeholder="Valor de compra" />
         <input type="number" placeholder="Valor de venda" />
         <input type="number" placeholder="Quantidade de entrada" />

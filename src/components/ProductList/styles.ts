@@ -28,6 +28,8 @@ export const Content = styled.div`
 
     button {
       margin-left: 1rem;
+      height: 0 auto;
+      font-size: 0.755;
     }
   }
 `
