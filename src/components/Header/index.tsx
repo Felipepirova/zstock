@@ -12,7 +12,7 @@ export function Header({ onOpenNewProductModal }: HeaderProps) {
           Z<span>Stock</span>
         </h2>
         <button type="button" onClick={onOpenNewProductModal}>
-          Nova movimentação
+          Novo Produto
         </button>
       </Content>
     </Container>

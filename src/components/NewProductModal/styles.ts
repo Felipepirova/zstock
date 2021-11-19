@@ -28,6 +28,7 @@ export const Container = styled.form`
     width: 100%;
     background: var(--green);
     color: var(--white);
+    margin-top: 1rem;
   }
 `
 export const ProductModalContainer = styled.div`
@@ -62,43 +63,6 @@ export const RadioBoxType = styled.button<RadioBoxPropsType>`
 
   span {
     text-align: center;
-    font-size: 1rem;
-    color: var(--title);
-  }
-`
-
-interface RadioBoxPropsMovimentation {
-  isActive: boolean
-  activeColor: 'green' | 'red'
-}
-
-const colors = {
-  green: '#00BF6F',
-  red: '#e52e4d'
-}
-
-export const RadioBoxMovimentation = styled.button<RadioBoxPropsMovimentation>`
-  background: ${props =>
-    props.isActive
-      ? transparentize(0.8, colors[props.activeColor])
-      : 'transparent'};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: border-color 0.2s;
-
-  &:hover {
-    border-color: ${darken(0.1, '#d7d7d7')};
-  }
-
-  img {
-    width: 20px;
-    height: 20px;
-  }
-
-  span {
-    display: inline-block;
-    margin-left: 1rem;
     font-size: 1rem;
     color: var(--title);
   }
