@@ -5,7 +5,7 @@ import { App } from './App'
 
 createServer({
   models: {
-    products: Model
+    product: Model
   },
 
   seeds(server) {
@@ -63,12 +63,12 @@ createServer({
   routes() {
     this.namespace = 'api'
     this.get('/products', () => {
-      return this.schema.all('products')
+      return this.schema.all('product')
     })
     this.post('products', (schema, request) => {
       const data = JSON.parse(request.requestBody)
 
-      return schema.create('products', data) //verificar se não é products ao invez de product
+      return schema.create('product', data) //verificar se não é products ao invez de product
     })
   }
 })

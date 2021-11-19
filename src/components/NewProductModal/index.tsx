@@ -5,9 +5,10 @@ import {
   RadioBoxType
 } from './styles'
 import Modal from 'react-modal'
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import arrowUpImg from '../../assets/arrow_up.svg'
 import arrowDownImg from '../../assets/arrow_down.svg'
+import { useStocksActions } from '../../hooks/useStock'
 
 Modal.setAppElement('#root')
 
@@ -20,12 +21,36 @@ export function NewProductModal({
   isOpen,
   onRequestClose
 }: NewProductModalProps) {
+  const { createNewProduct } = useStocksActions()
+
   const [description, setDescription] = useState('')
   const [type, setType] = useState('eletronic')
   const [saleValue, setSaleValue] = useState(0)
   const [profitValue, setProfitValue] = useState(0)
   const [amount, setAmount] = useState(0)
+  const [output /*setOutput*/] = useState(0)
   const [movimentation, setMovimentation] = useState('deposit')
+
+  //setar condições para movimentation button em uma função, tirando valor de output sempre que for setado como deposit
+
+  async function handleCreateNewProduct(event: FormEvent) {
+    event.preventDefault()
+
+    if (movimentation === 'deposit') {
+      await createNewProduct({
+        description,
+        type,
+        saleValue,
+        profitValue,
+        amount,
+        output
+      })
+    } else {
+      //withdraw product
+    }
+
+    onRequestClose()
+  }
 
   return (
     <Modal
@@ -34,7 +59,7 @@ export function NewProductModal({
       overlayClassName="react-modal-overlay"
       className="react-modal-content"
     >
-      <Container>
+      <Container onSubmit={handleCreateNewProduct}>
         <h2>Cadastrar novo produto</h2>
 
         <ProductModalContainer>

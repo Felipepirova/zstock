@@ -18,6 +18,8 @@ interface Product {
   output: number
 }
 
+type ProductDepositInput = Omit<Product, 'id'>
+
 interface ProductProviderProps {
   children: ReactNode
 }
@@ -32,6 +34,7 @@ interface ProductsContextData {
   }
   actions: {
     setFilter: (props: string) => void
+    createNewProduct: (product: ProductDepositInput) => void
   }
 }
 
@@ -46,6 +49,12 @@ export function ProductsProvider({ children }: ProductProviderProps) {
   useEffect(() => {
     api.get('products').then(response => setProducts(response.data.products))
   }, [])
+
+  async function createNewProduct(productDeposit: ProductDepositInput) {
+    const response = await api.post('/products', productDeposit)
+    const { product } = response.data
+    setProducts([...products, product])
+  }
 
   const getBalance = useMemo(() => {
     const outputSale = products
@@ -107,7 +116,8 @@ export function ProductsProvider({ children }: ProductProviderProps) {
           filteredProducts
         },
         actions: {
-          setFilter
+          setFilter,
+          createNewProduct
         }
       }}
     >
