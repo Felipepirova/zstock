@@ -1,4 +1,9 @@
-import { Container, ProductTypeContainer, RadioBox } from './styles'
+import {
+  Container,
+  ProductModalContainer,
+  RadioBoxMovimentation,
+  RadioBoxType
+} from './styles'
 import Modal from 'react-modal'
 import { useState } from 'react'
 import arrowUpImg from '../../assets/arrow_up.svg'
@@ -16,12 +21,11 @@ export function NewProductModal({
   onRequestClose
 }: NewProductModalProps) {
   const [description, setDescription] = useState('')
-  const [type, setType] = useState('deposit')
+  const [type, setType] = useState('eletronic')
   const [saleValue, setSaleValue] = useState(0)
   const [profitValue, setProfitValue] = useState(0)
   const [amount, setAmount] = useState(0)
-
-  console.log(description, saleValue, profitValue, amount)
+  const [movimentation, setMovimentation] = useState('deposit')
 
   return (
     <Modal
@@ -32,6 +36,40 @@ export function NewProductModal({
     >
       <Container>
         <h2>Cadastrar novo produto</h2>
+
+        <ProductModalContainer>
+          <RadioBoxType
+            type="button"
+            onClick={() => {
+              setType('eletronic')
+            }}
+            isActive={type === 'eletronic'}
+            activeColor="green"
+          >
+            <span>Eletrônico</span>
+          </RadioBoxType>
+          <RadioBoxType
+            type="button"
+            onClick={() => {
+              setType('appliances')
+            }}
+            isActive={type === 'appliances'}
+            activeColor="green"
+          >
+            <span>Eletrodoméstico</span>
+          </RadioBoxType>
+          <RadioBoxType
+            type="button"
+            onClick={() => {
+              setType('furniture')
+            }}
+            isActive={type === 'furniture'}
+            activeColor="green"
+          >
+            <span>Móvel</span>
+          </RadioBoxType>
+        </ProductModalContainer>
+
         <input
           type="text"
           placeholder="Descrição"
@@ -58,32 +96,32 @@ export function NewProductModal({
           onChange={event => setAmount(Number(event.target.value))}
         />
 
-        <ProductTypeContainer>
-          <RadioBox
+        <ProductModalContainer>
+          <RadioBoxMovimentation
             type="button"
             onClick={() => {
-              setType('deposit')
+              setMovimentation('deposit')
             }}
-            isActive={type === 'deposit'}
+            isActive={movimentation === 'deposit'}
             activeColor="green"
           >
             <img src={arrowUpImg} alt="Icone entrada" />
             <span>Entrada</span>
-          </RadioBox>
-          <RadioBox
+          </RadioBoxMovimentation>
+          <RadioBoxMovimentation
             type="button"
             onClick={() => {
-              setType('withdraw')
+              setMovimentation('withdraw')
             }}
-            isActive={type === 'withdraw'}
+            isActive={movimentation === 'withdraw'}
             activeColor="red"
           >
             <img src={arrowDownImg} alt="Icone saida" />
             <span>Saída</span>
-          </RadioBox>
-        </ProductTypeContainer>
+          </RadioBoxMovimentation>
+        </ProductModalContainer>
 
-        <button>Cadastrar movimentação</button>
+        <button type="submit">Cadastrar movimentação</button>
       </Container>
     </Modal>
   )
