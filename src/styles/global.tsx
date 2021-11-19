@@ -28,6 +28,8 @@ export const GlobalStyle = createGlobalStyle`
   body, input, textarea, button{
     font-family: "Sora", sans-serif;
     font-weight: 400;
+    border-radius: 3rem;
+    border: 1px solid var(--green);
   }
 
   h1,h2,h3,h4,h5,h6, strong{
@@ -45,7 +47,6 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 1rem;
     color: var(--green);
     background: var(--white);
-    border: 1px solid var(--green);
     padding: 0 2rem;
     border-radius: 3rem;
     height: 3rem;

@@ -7,6 +7,12 @@ import { useStocksState } from '../../hooks/useStock'
 export function Dashboard() {
   const { getBalance, getAmount, getOutput } = useStocksState()
 
+  const formatMoney = (balance: number) =>
+    Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(balance)
+
   return (
     <Container>
       <div>
@@ -14,12 +20,7 @@ export function Dashboard() {
           <p>Valor acumulado</p>
           <img src={moneyImg} alt="Entradas" />
         </header>
-        <strong className="money">
-          {new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-          }).format(getBalance)}
-        </strong>
+        <strong className="money">{formatMoney(getBalance)}</strong>
       </div>
       <div>
         <header>

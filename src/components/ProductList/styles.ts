@@ -8,9 +8,8 @@ export const Container = styled.div`
 
     li {
       margin-top: 1rem;
-
       padding: 1rem;
-      border-radius: 2rem;
+      border-radius: 0.25rem;
       color: var(--grey);
       background: var(--white);
     }
@@ -28,7 +27,6 @@ export const Content = styled.div`
 
     button {
       margin-left: 1rem;
-      height: 0 auto;
       font-size: 0.755;
     }
   }
