@@ -98,8 +98,6 @@ export function ProductsProvider({ children }: ProductProviderProps) {
       arraySale[id].amount = arraySale[id].amount - 1
       arraySale[id].output = arraySale[id].output + 1
       setProducts(arraySale)
-    } else {
-      console.log('---impossível vender mais itens' + arraySale[id].amount)
     }
   }
 

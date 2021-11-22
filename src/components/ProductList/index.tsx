@@ -31,7 +31,10 @@ export function ProductList() {
             <p>Valor de venda:{product.profitValue} </p>
             <p>Quantidade em estoque:{product.amount}</p>
             <p>Já vendemos:{product.output}</p>
-            <button onClick={() => handleCreateNewSale(product.id)}>
+            <button
+              disabled={product.amount >= 1 ? false : true}
+              onClick={() => handleCreateNewSale(product.id)}
+            >
               Adicionar Venda
             </button>
           </li>
