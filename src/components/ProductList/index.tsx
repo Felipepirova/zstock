@@ -3,7 +3,11 @@ import { Container, Content } from './styles'
 
 export function ProductList() {
   const { filteredProducts } = useStocksState()
-  const { setFilter } = useStocksActions()
+  const { setFilter, createNewSale } = useStocksActions()
+
+  function handleCreateNewSale(id: number) {
+    createNewSale(id)
+  }
 
   return (
     <Container>
@@ -20,13 +24,16 @@ export function ProductList() {
       </Content>
       <ul>
         {filteredProducts.map((product, i) => (
-          <li key={i} onClick={() => console.log(i)}>
+          <li key={i}>
             <p>Descrição:{product.description} </p>
             <p>Tipo:{product.type}</p>
             <p>Valor de compra:{product.saleValue}</p>
             <p>Valor de venda:{product.profitValue} </p>
             <p>Quantidade em estoque:{product.amount}</p>
             <p>Já vendemos:{product.output}</p>
+            <button onClick={() => handleCreateNewSale(i)}>
+              Adicionar Venda
+            </button>
           </li>
         ))}
       </ul>

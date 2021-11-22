@@ -23,10 +23,10 @@ export function NewProductModal({
   const [amount, setAmount] = useState(0)
   const output = 0
 
-  async function handleCreateNewProduct(event: FormEvent) {
+  function handleCreateNewProduct(event: FormEvent) {
     event.preventDefault()
 
-    await createNewProduct({
+    createNewProduct({
       description,
       type,
       saleValue,

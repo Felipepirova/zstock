@@ -1,11 +1,4 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useMemo,
-  useState
-} from 'react'
+import { createContext, ReactNode, useContext, useMemo, useState } from 'react'
 
 interface Product {
   description: string
@@ -31,6 +24,7 @@ interface ProductsContextData {
   actions: {
     setFilter: (props: string) => void
     createNewProduct: (product: Product) => void
+    createNewSale: (id: number) => void
   }
 }
 
@@ -82,8 +76,20 @@ export function ProductsProvider({ children }: ProductProviderProps) {
     }
   ])
   const [filter, setFilter] = useState<string>('')
-  async function createNewProduct(productDeposit: Product) {
-    setProducts([...products, productDeposit])
+  function createNewProduct(product: Product) {
+    setProducts([...products, product])
+  }
+
+  function createNewSale(id: number) {
+    var arraySale = [...products]
+
+    if (arraySale[id].amount > 0) {
+      arraySale[id].amount = arraySale[id].amount - 1
+      arraySale[id].output = arraySale[id].output + 1
+      setProducts(arraySale)
+    } else {
+      console.log('---impossível vender mais itens' + arraySale[id].amount)
+    }
   }
 
   const getBalance = useMemo(() => {
@@ -147,7 +153,8 @@ export function ProductsProvider({ children }: ProductProviderProps) {
         },
         actions: {
           setFilter,
-          createNewProduct
+          createNewProduct,
+          createNewSale
         }
       }}
     >
