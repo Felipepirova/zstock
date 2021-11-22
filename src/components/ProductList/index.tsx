@@ -19,8 +19,8 @@ export function ProductList() {
         </div>
       </Content>
       <ul>
-        {filteredProducts.map(product => (
-          <li key={product.id}>
+        {filteredProducts.map((product, i) => (
+          <li key={i} onClick={() => console.log(i)}>
             <p>Descrição:{product.description} </p>
             <p>Tipo:{product.type}</p>
             <p>Valor de compra:{product.saleValue}</p>

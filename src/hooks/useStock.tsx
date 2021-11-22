@@ -6,10 +6,8 @@ import {
   useMemo,
   useState
 } from 'react'
-import { api } from '../services/api'
 
 interface Product {
-  id: number
   description: string
   type: string
   saleValue: number
@@ -17,8 +15,6 @@ interface Product {
   amount: number
   output: number
 }
-
-type ProductDepositInput = Omit<Product, 'id'>
 
 interface ProductProviderProps {
   children: ReactNode
@@ -34,7 +30,7 @@ interface ProductsContextData {
   }
   actions: {
     setFilter: (props: string) => void
-    createNewProduct: (product: ProductDepositInput) => void
+    createNewProduct: (product: Product) => void
   }
 }
 
@@ -43,17 +39,51 @@ const ProductsContext = createContext<ProductsContextData>(
 )
 
 export function ProductsProvider({ children }: ProductProviderProps) {
-  const [products, setProducts] = useState<Product[]>([])
+  const [products, setProducts] = useState<Product[]>([
+    {
+      description: 'Notebook',
+      type: 'eletronic',
+      saleValue: 1000,
+      profitValue: 2000,
+      amount: 3,
+      output: 5
+    },
+    {
+      description: 'Celular',
+      type: 'eletronic',
+      saleValue: 800,
+      profitValue: 1000,
+      amount: 5,
+      output: 1
+    },
+    {
+      description: 'Liquidificador',
+      type: 'appliances',
+      saleValue: 100,
+      profitValue: 300,
+      amount: 15,
+      output: 2
+    },
+    {
+      description: 'Sofa',
+      type: 'furniture',
+      saleValue: 1500,
+      profitValue: 3000,
+      amount: 2,
+      output: 0
+    },
+    {
+      description: 'Geladeira',
+      type: 'appliances',
+      saleValue: 1500,
+      profitValue: 2000,
+      amount: 3,
+      output: 1
+    }
+  ])
   const [filter, setFilter] = useState<string>('')
-
-  useEffect(() => {
-    api.get('products').then(response => setProducts(response.data.products))
-  }, [])
-
-  async function createNewProduct(productDeposit: ProductDepositInput) {
-    const response = await api.post('/products', productDeposit)
-    const { product } = response.data
-    setProducts([...products, product])
+  async function createNewProduct(productDeposit: Product) {
+    setProducts([...products, productDeposit])
   }
 
   const getBalance = useMemo(() => {
