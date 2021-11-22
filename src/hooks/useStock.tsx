@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useContext, useMemo, useState } from 'react'
 
 interface Product {
+  id: number
   description: string
   type: string
   saleValue: number
@@ -8,6 +9,8 @@ interface Product {
   amount: number
   output: number
 }
+
+type TransactionInput = Omit<Product, 'id'>
 
 interface ProductProviderProps {
   children: ReactNode
@@ -23,7 +26,7 @@ interface ProductsContextData {
   }
   actions: {
     setFilter: (props: string) => void
-    createNewProduct: (product: Product) => void
+    createNewProduct: (product: TransactionInput) => void
     createNewSale: (id: number) => void
   }
 }
@@ -35,6 +38,7 @@ const ProductsContext = createContext<ProductsContextData>(
 export function ProductsProvider({ children }: ProductProviderProps) {
   const [products, setProducts] = useState<Product[]>([
     {
+      id: 0,
       description: 'Notebook',
       type: 'eletronic',
       saleValue: 1000,
@@ -43,6 +47,7 @@ export function ProductsProvider({ children }: ProductProviderProps) {
       output: 5
     },
     {
+      id: 1,
       description: 'Celular',
       type: 'eletronic',
       saleValue: 800,
@@ -51,6 +56,7 @@ export function ProductsProvider({ children }: ProductProviderProps) {
       output: 1
     },
     {
+      id: 2,
       description: 'Liquidificador',
       type: 'appliances',
       saleValue: 100,
@@ -59,6 +65,7 @@ export function ProductsProvider({ children }: ProductProviderProps) {
       output: 2
     },
     {
+      id: 3,
       description: 'Sofa',
       type: 'furniture',
       saleValue: 1500,
@@ -67,6 +74,7 @@ export function ProductsProvider({ children }: ProductProviderProps) {
       output: 0
     },
     {
+      id: 4,
       description: 'Geladeira',
       type: 'appliances',
       saleValue: 1500,
@@ -76,7 +84,10 @@ export function ProductsProvider({ children }: ProductProviderProps) {
     }
   ])
   const [filter, setFilter] = useState<string>('')
-  function createNewProduct(product: Product) {
+
+  function createNewProduct(productInput: TransactionInput) {
+    const id = products[products.length - 1].id + 1
+    const product = { ...productInput, id }
     setProducts([...products, product])
   }
 

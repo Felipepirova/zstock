@@ -23,15 +23,15 @@ export function ProductList() {
         </div>
       </Content>
       <ul>
-        {filteredProducts.map((product, i) => (
-          <li key={i}>
+        {filteredProducts.map(product => (
+          <li key={product.id}>
             <p>Descrição:{product.description} </p>
             <p>Tipo:{product.type}</p>
             <p>Valor de compra:{product.saleValue}</p>
             <p>Valor de venda:{product.profitValue} </p>
             <p>Quantidade em estoque:{product.amount}</p>
             <p>Já vendemos:{product.output}</p>
-            <button onClick={() => handleCreateNewSale(i)}>
+            <button onClick={() => handleCreateNewSale(product.id)}>
               Adicionar Venda
             </button>
           </li>
