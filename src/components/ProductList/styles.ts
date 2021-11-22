@@ -13,6 +13,16 @@ export const Container = styled.div`
       color: var(--grey);
       background: var(--white);
     }
+
+    header {
+      display: flex;
+      align-items: center;
+    }
+
+    footer {
+      display: grid;
+      grid-template-columns: 80% 1fr;
+    }
   }
 `
 export const Content = styled.div`

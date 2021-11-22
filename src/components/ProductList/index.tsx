@@ -9,6 +9,23 @@ export function ProductList() {
     createNewSale(id)
   }
 
+  function formatOutputType(type: string) {
+    switch (type) {
+      case 'eletronic':
+        return 'Eletrônicos'
+      case 'appliances':
+        return 'Eletrodomésticos'
+      case 'furniture':
+        return 'Moveis'
+    }
+  }
+
+  const formatMoney = (number: number) =>
+    Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(number)
+
   return (
     <Container>
       <Content>
@@ -25,18 +42,27 @@ export function ProductList() {
       <ul>
         {filteredProducts.map(product => (
           <li key={product.id}>
-            <p>Descrição:{product.description} </p>
-            <p>Tipo:{product.type}</p>
-            <p>Valor de compra:{product.saleValue}</p>
-            <p>Valor de venda:{product.profitValue} </p>
-            <p>Quantidade em estoque:{product.amount}</p>
-            <p>Já vendemos:{product.output}</p>
-            <button
-              disabled={product.amount >= 1 ? false : true}
-              onClick={() => handleCreateNewSale(product.id)}
-            >
-              Adicionar Venda
-            </button>
+            <header>
+              <h2>{product.description} </h2>
+              <p> - ({formatOutputType(product.type)})</p>
+            </header>
+
+            <footer>
+              <div>
+                <p>Preço compra:{formatMoney(product.saleValue)}</p>
+                <p>Preço venda:{formatMoney(product.profitValue)} </p>
+                <p>Estoque:{product.amount}</p>
+                <p>Vendido:{product.output}</p>
+              </div>
+              <div>
+                <button
+                  disabled={product.amount >= 1 ? false : true}
+                  onClick={() => handleCreateNewSale(product.id)}
+                >
+                  Adicionar Venda
+                </button>
+              </div>
+            </footer>
           </li>
         ))}
       </ul>
